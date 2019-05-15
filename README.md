@@ -20,3 +20,12 @@ Create the following in a new resource group
 git clone https://github.com/jesstedder/demos-serverless.git
 ```
 
+## Notes for me
+Initialize the function app locally
+```
+#in the folder
+func init
+
+#create a new function
+func new
+```
