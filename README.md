@@ -1,1 +1,1 @@
-# demos-serverless
+# Demo Azure Function project
