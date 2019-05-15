@@ -1,0 +1,25 @@
+<mat-toolbar>
+  <span>Serverless Example</span>
+</mat-toolbar>
+<mat-card>
+  <mat-card-title>Generator</mat-card-title>
+  <mat-card-subtitle>Don't click the button!</mat-card-subtitle>
+  <mat-card-content>
+    <mat-form-field>
+      <input matInput placeholder="Number of reports" value="10" type="number">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Name of report" value="pingpong" type="text">
+      </mat-form-field>
+      <button mat-raised-button color="primary">Click me</button>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-title>Monitor</mat-card-title>
+  <mat-card-content>
+    show results here
+  </mat-card-content>
+</mat-card>
+
+<router-outlet></router-outlet>
