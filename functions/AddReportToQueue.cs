@@ -20,11 +20,6 @@ namespace functions
             ILogger log, ExecutionContext context,
             [Queue("report-generation", Connection="AzureWebJobsStorage")] out string reportName)
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(context.FunctionAppDirectory)
-                .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
-                .AddEnvironmentVariables()
-                .Build();
 
             log.LogInformation("C# HTTP trigger function processed a request.");
 
