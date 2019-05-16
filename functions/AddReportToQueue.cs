@@ -16,7 +16,7 @@ namespace functions
     {
         [FunctionName("AddReportToQueue")]
         public static IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log, ExecutionContext context,
             [Queue("report-generation", Connection="AzureWebJobsStorage")] out string reportName)
         {
