@@ -39,8 +39,10 @@ namespace functions
 
             var queueConnectionString = config.GetValue<string>("QueueConnection");
 
+            var res = new Microsoft.AspNetCore.Mvc.JsonResult(new {queued=reportName});
+            return res;
 
-            return new OkObjectResult($"Queued {reportName}");
+            
             
         }
     }
