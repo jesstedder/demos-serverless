@@ -18,7 +18,7 @@ namespace functions
         public static IActionResult Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log, ExecutionContext context,
-            [Queue("report-generation", Connection="QueueConnection")] out string reportName)
+            [Queue("report-generation", Connection="AzureWebJobsStorage")] out string reportName)
         {
             var config = new ConfigurationBuilder()
                 .SetBasePath(context.FunctionAppDirectory)
@@ -37,7 +37,6 @@ namespace functions
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             reportName = name ?? data?.name;
 
-            var queueConnectionString = config.GetValue<string>("QueueConnection");
 
             var res = new Microsoft.AspNetCore.Mvc.JsonResult(new {queued=reportName});
             return res;
