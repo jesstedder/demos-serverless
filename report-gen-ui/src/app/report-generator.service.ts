@@ -13,4 +13,9 @@ export class ReportGeneratorService {
     //return this.http.get("http://myfucniotnurl.jss?name="+name);
     return this.http.post(`${environment.functionBaseUrl}/AddReportToQueue`, "{name:'" + name + "'}");
   }
+
+  getServerTime(){
+    return this.http.get(`${environment.functionBaseUrl}/GetServerTime`);
+
+  }
 }

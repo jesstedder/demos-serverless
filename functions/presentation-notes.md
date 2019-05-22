@@ -58,9 +58,172 @@ http://dutchs.board.jesstedder.net
  - Azure functions with proxy support
 
 # Lets write some code :fist:
+> Go here:  https://github.com/jesstedder/demos-serverless
+
+### Goal
+This is a simulated report generator.  It will allow you to enter a number and name of a report and it will trigger a backend process that will create dummy PDFs.  The 
+backend process will send updates to the UI so the user can see when the PDF creation has finished.
+
+### Technologies 
+- Angular for the UI
+- Azure storage with static hosting for the UI 
+- Azure functions to enqueue the requests
+- Azure fuctions proxy to handle CORS issue
+- Azure Queue storage for the queue itself
+- Azure functions to consume queue and perform backend processing
+- Azure signalr to send updates back to the UI
+
+### Get the base project setup
+``` bash 
+git clone https://github.com/jesstedder/demos-serverless.git
+
+cd demos-serverless
+
+cd functions
+
+dotnet restore
+
+cd ../report-gen-ui
+
+npm install
+
+ng serve
+
+# in a second terminal
+cd ../functions
+func start
+```
+- Now go to http://localhost:7071
+- Run some "reports" 
+- Look at storage to see its really doing this thing
+- Look at function code
+- Look at dev tools
+- look at proxies.json
+
+### Add a new function
+So now we'll add a super important feature, we'll add the ability to click a button and get the server time.
+
+``` bash
+cd functions
+func new
+#HttpTrigger
+#GetServerTime
+```
+
+ Open the new file, modify it to look like this
+
+``` c#
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.Http;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+
+namespace functions
+{
+    public static class GetServerTime
+    {
+        [FunctionName("GetServerTime")]
+        public static async Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
+            ILogger log)
+        {
+            var res = new Microsoft.AspNetCore.Mvc.JsonResult(new { now = DateTime.UtcNow });
+            return res;
+
+        }
+    }
+}
+
+```
+Now start the project 
+
+```bash
+func start
+```
+and then browse to http://localhost:7071/api/GetServerTime
 
 
+Next lets add a new angular component to show the server time
 
+
+```bash
+cd ../report-gen-ui/
+ng g component ServerTime
+```
+
+
+Add this code to report-generator.service.ts
+```typescript
+ getServerTime(){
+    return this.http.get(`${environment.functionBaseUrl}/GetServerTime`);
+
+  }
+```
+
+Edit server-time/server-time.component.ts to look like this
+``` typescript
+import { Component, OnInit } from '@angular/core';
+import {ReportGeneratorService} from '../report-generator.service';
+
+@Component({
+  selector: 'app-server-time',
+  templateUrl: './server-time.component.html',
+  styleUrls: ['./server-time.component.css']
+})
+export class ServerTimeComponent implements OnInit {
+
+  constructor(private rptGenSvc:ReportGeneratorService) { }
+
+  serverTime:any = null;
+
+  ngOnInit() {
+  }
+
+  serverTimeClick(){
+    this.rptGenSvc.getServerTime().subscribe(st=>{
+      this.serverTime = st;
+    })
+  }
+
+}
+
+```
+
+The server-time-component.html should look like this:
+``` html
+<p>
+  server-time is {{serverTime.now}}
+  <button mat-raised-button color="primary" (click)="serverTimeClick()">Get the time</button>
+
+</p>
+
+```
+
+
+Add this to app.component.html
+``` html
+<app-server-time></app-server-time>
+```
+
+Now run
+``` bash
+cd functions
+func start
+```
+
+and 
+``` bash
+ng start
+```
+
+Browse to http://localhost:4200 to test
+
+and now deploy
 
 
 

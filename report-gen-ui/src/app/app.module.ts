@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ServerTimeComponent } from './server-time/server-time.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ServerTimeComponent
   ],
   imports: [
     BrowserModule,
