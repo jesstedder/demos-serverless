@@ -11,6 +11,9 @@
  - Low administrative overhead (I'm lazy)
  - Learn some new stuff
 
+![nw diagram](./nw-diagram.svg)
+
+
 # Solution (v1)
 > http://dbb-hosting.s3-website.us-east-2.amazonaws.com/
  - Angular UI
