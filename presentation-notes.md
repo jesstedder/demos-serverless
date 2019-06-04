@@ -86,6 +86,9 @@ cd functions
 
 dotnet restore
 
+cp example.local.settings.json local.settings.json
+# Edit the settings file and insert the storage account and signalr connection strings
+
 cd ../report-gen-ui
 
 npm install
