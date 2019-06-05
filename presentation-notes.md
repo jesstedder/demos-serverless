@@ -99,7 +99,7 @@ ng serve
 cd ../functions
 func start
 ```
-- Now go to http://localhost:7071
+- Now go to http://localhost:4200
 - Run some "reports" 
 - Look at storage to see its really doing this thing
 - Look at function code
@@ -224,13 +224,27 @@ func start
 
 and 
 ``` bash
-ng start
+ng serve
 ```
 
 Browse to http://localhost:4200 to test
 
-and now deploy
 
+### Deploying the Angular app
+``` bash
+# take a look at environment.prod.ts
+ng build --prod
+```
+
+Next, make sure static hosting is enabled and copy the contents of the dist folder to $web in your storage account.
+
+
+### Deploying the Functions app
+Take a look at proxies.json and talk about this
+
+Deploy using the functions extension
+
+Update the FrontEndUrl setting to point to the static hosting address
 
 
 
