@@ -1,7 +1,14 @@
 # Back story
+ - Been to Dutch's?
  - USB stick that had to be manually removed to update
  - Data had to be emailed to support to be updated
  - Updates are needed multiple times a day
+ - Who's worked with
+    - AWS
+    - Raspberry Pi
+    - Serverless
+    
+![jess](./jess-at-bar.jpg)
 
 # Success Criteria
  - Quickly update without interrupting service
@@ -59,6 +66,9 @@ http://dutchs.board.jesstedder.net
  - Azure serverless SignalR
  - Azure static hosting
  - Azure functions with proxy support
+
+![demo diagram](./demo-diagram.svg)
+> Go to live site and demonstrate what its doing
 
 # Lets write some code :fist:
 > Go here:  https://github.com/jesstedder/demos-serverless
